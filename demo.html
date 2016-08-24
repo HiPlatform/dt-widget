@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Demo</title>
+	<script src="dt-widget.js"></script>
+</head>
+<body>
+	<script>
+		var options = {
+			css: "css/demo.css",
+			chatURL: "https://www3.directtalk.com.br?idd=123123",
+			title: "Chat online",
+			buttonText: "Enviar",
+			customText: "Preencha os campos abaixo para iniciar o atendimento:",
+			closed: true,
+			useMask: true,
+			fields: [{
+				type: "text",
+				name: "nome_usuario",
+				label: "Nome",
+				required: true
+			},{
+				type: "email",
+				name: "email",
+				label: "Email",
+				placeholder: "Email",
+				required: true
+			},{
+				type: "text",
+				name: "phone",
+				label: "Telefone",
+				mask: "(99) 9999-9999",
+				required: true
+			},{
+				type: "select",
+				name: "assunto",
+				label: "Assunto",
+				options: [{
+					name: "assunto 1",
+					value: "assunto 1"
+				},{
+					name: "assunto 2",
+					value: "assunto 2"
+				},{
+					name: "assunto 3",
+					value: "assunto 3"
+				}],
+				required: true
+			}]
+		};
+
+		var widget = new ChatWidget();
+		widget.create(options);
+		widget.setTimer(3);
+	</script>
+</body>
+</html>
