@@ -177,9 +177,12 @@
 	ChatWidget.prototype.submitForm = function(e){
 	  	e.preventDefault();
 	  	var isValid = true;
+	  	var data = "?";
 
 	  	this.fields.forEach(function(field){
-
+	  		
+	  		data += field.name + "=" + this.widget.body.form[field.name].value + "&";
+	  		
 	  		if(field.required){
 	  			if(!this.validateRequired(this.widget.body.form[field.name])){
 	  				isValid = false;
@@ -201,7 +204,7 @@
 	  	}
 		
 		if(!this.widget.body.form.$invalid){
-			window.open(this.url, "Popup", "width=340,height=480");
+			window.open(this.chatURL + data, "Popup", "width=340,height=480");
 		}
 	};
 
