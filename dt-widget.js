@@ -177,7 +177,7 @@
 	ChatWidget.prototype.submitForm = function(e){
 	  	e.preventDefault();
 	  	var isValid = true;
-	  	var data = "?";
+	  	var data = "&";
 
 	  	this.fields.forEach(function(field){
 	  		
