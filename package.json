@@ -1,0 +1,26 @@
+{
+  "name": "dtwidget",
+  "version": "1.0.0",
+  "description": "Widget para o DTChat",
+  "main": "dt-widget.js",
+  "scripts": {
+    "test": "none",
+    "build": "uglifyjs --compress --mangle -o dt-widget.min.js -- dt-widget.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DirectTalk/dt-widget.git"
+  },
+  "keywords": [
+    "DTChat"
+  ],
+  "author": "lfilho",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DirectTalk/dt-widget/issues"
+  },
+  "homepage": "https://github.com/DirectTalk/dt-widget#readme",
+  "devDependencies": {
+    "uglify-js": "^2.7.3"
+  }
+}

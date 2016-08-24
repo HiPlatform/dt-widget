@@ -10,7 +10,7 @@
 	} else if (typeof exports === 'object') {
 		module.exports = factory();
 	} else {
-		root.ChatWidget = factory();
+		root['ChatWidget'] = factory();
 	}
 }(this, function(){
 	'use strict';
