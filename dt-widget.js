@@ -15,14 +15,20 @@
 }(this, function(){
 	'use strict';
 
+	var getScriptUrl = function(){
+		var scripts = document.getElementsByTagName('script');
+		var url = scripts[scripts.length - 1].src.replace("dt-widget.js", "").replace("dt-widget.min.js", "");
+		return url;
+	};
+
+	var SCRIPT_URL = getScriptUrl();
+
 	/**
 	 * Main Class
 	 */
 	var ChatWidget = function(){
 		this.getScriptUrl = function(){
-			var scripts = document.getElementsByTagName('script');
-			var url = scripts[scripts.length - 1].src.replace("dt-widget.js").replace("dt-widget.min.js");
-			return url;
+			return SCRIPT_URL;
 		};
 
 		this.loadCSS = function(url){
