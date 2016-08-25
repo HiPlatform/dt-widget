@@ -31,11 +31,18 @@
 			return SCRIPT_URL;
 		};
 
-		this.loadCSS = function(url){
+		this.loadCSS = function(url, callback){
 			var temp = document.createElement("link");
 	        temp.setAttribute("rel", "stylesheet");
 	        temp.setAttribute("type", "text/css");
 	        temp.setAttribute("href", url);
+
+	        temp.onreadystatechange = temp.onload = function() {
+		    	if (!callback.done && (!temp.readyState || /loaded|complete/.test(temp.readyState))) {
+		      		callback.done = true;
+		      		callback();
+		    	}
+		  	};
 	        document.querySelector("head").appendChild(temp);
 		};
 
@@ -85,7 +92,6 @@
 			return false;
 		}
 
-		this.loadCSS(options.css);
 		this.widget = document.createElement("div");
 		this.widget.className = "dt-chat-widget";
 		this.widget.header = document.createElement("div");
@@ -115,11 +121,14 @@
 		this.widget.body.form.button.innerHTML = options.buttonText;
 		this.widget.body.form.appendChild(this.widget.body.form.button);
 		this.widget.body.form.button.type = "submit";
-		document.body.appendChild(this.widget);
+
+		this.loadCSS(options.css, function(){
+			document.body.appendChild(this.widget);
 		
-		if(typeof options.closed === "undefined" || options.closed === true){
-			this.close();
-		}
+			if(typeof options.closed === "undefined" || options.closed === true){
+				this.close();
+			}
+		}.bind(this));
 	};
 	
 	/**
