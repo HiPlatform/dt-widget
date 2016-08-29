@@ -195,8 +195,16 @@
 	  	var data = "&";
 
 	  	this.fields.forEach(function(field){
+
+	  		var value, newValue;
+
+	  		if(field.mask) {
+	  			newValue = VMasker.toNumber(this.widget.body.form[field.name].value);
+	  		}
+
+	  		value = newValue || this.widget.body.form[field.name].value;
 	  		
-	  		data += field.name + "=" + this.widget.body.form[field.name].value + "&";
+	  		data += field.name + "=" + value + "&";
 	  		
 	  		if(field.required){
 	  			if(!this.validateRequired(this.widget.body.form[field.name])){
