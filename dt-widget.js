@@ -143,7 +143,7 @@
 	  	var label = document.createElement("label");
 	  	var input;
 
-		if(field.type === "text" || field.type === "number" || field.type === "email"){
+		if(field.type === "text" || field.type === "number" || field.type === "email" || field.type === "hidden"){
 			input = document.createElement("input");
 			input.type = field.type;
 		}else if(field.type === "select"){
@@ -177,9 +177,13 @@
 		inputWrapper.appendChild(label);
 		inputWrapper.appendChild(input);
 
-		label.innerHTML = field.label;
+		label.innerHTML = field.label || "";	
 		input.required = field.required;
 		input.name = field.name;
+
+		if(field.value){
+			input.value = field.value;
+		}
 
 		form.appendChild(inputWrapper);
 	};
@@ -192,7 +196,7 @@
 	ChatWidget.prototype.submitForm = function(e){
 	  	e.preventDefault();
 	  	var isValid = true;
-	  	var data = "&";
+	  	var data = "";
 
 	  	this.fields.forEach(function(field){
 
@@ -204,7 +208,7 @@
 
 	  		value = newValue || this.widget.body.form[field.name].value;
 	  		
-	  		data += field.name + "=" + value + "&";
+	  		data += "&" + field.name + "=" + value;
 	  		
 	  		if(field.required){
 	  			if(!this.validateRequired(this.widget.body.form[field.name])){
