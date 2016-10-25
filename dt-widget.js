@@ -231,7 +231,8 @@
 	  	}
 		
 		if(!this.widget.body.form.$invalid){
-			window.open(this.chatURL + data, "Popup", "width=340,height=480");
+			window.
+			(this.chatURL + data, "Popup", "width=480,height=520");
 		}
 	};
 
