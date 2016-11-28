@@ -129,6 +129,11 @@
 				this.close();
 			}
 		}.bind(this));
+		
+
+		if(typeof this.oncreate === 'function') {
+			this.oncreate();
+		}
 	};
 	
 	/**
@@ -231,8 +236,11 @@
 	  	}
 		
 		if(!this.widget.body.form.$invalid){
-			window.
-			(this.chatURL + data, "Popup", "width=480,height=520");
+			window.open(this.chatURL + data, "Popup", "width=480,height=520");
+		}
+
+		if(typeof this.onsubmit === 'function') {
+			this.onsubmit();
 		}
 	};
 
@@ -286,6 +294,10 @@
 		this.widget.className = this.widget.className.replace(" open", "");
 		this.widget.className = this.widget.className.replace(" closed", "");
 		this.widget.className += " open";
+
+		if(typeof this.onopen === 'function') {
+			this.onopen();
+		}
 	};
 
 	/**
@@ -297,6 +309,10 @@
 		this.widget.className = this.widget.className.replace(" closed", "");
 		this.widget.className = this.widget.className.replace(" open", "");
 		this.widget.className += " closed";
+
+		if(typeof this.onclose === 'function') {
+			this.onclose();
+		}
 	};
 
 	/**
@@ -309,7 +325,21 @@
 		}else{
 			this.close();
 		}
+
+		if(typeof this.ontoggle === 'function') {
+			this.ontoggle();
+		}
 	};
+
+	/**
+	 * Callbacks
+	 * @return void
+	 */
+	ChatWidget.prototype.oncreate   = function() {};
+	ChatWidget.prototype.onsubmit   = function() { console.log('submited'); };
+	ChatWidget.prototype.onopen     = function() {};
+	ChatWidget.prototype.ontoggle   = function() {};
+	// ChatWidget.prototype.onclose    = function() {};
 
 	return ChatWidget;
 }));
