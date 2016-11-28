@@ -339,7 +339,7 @@
 	ChatWidget.prototype.onsubmit   = function() { console.log('submited'); };
 	ChatWidget.prototype.onopen     = function() {};
 	ChatWidget.prototype.ontoggle   = function() {};
-	// ChatWidget.prototype.onclose    = function() {};
+	ChatWidget.prototype.onclose    = function() {};
 
 	return ChatWidget;
 }));
