@@ -47,7 +47,7 @@ Aqui vão informações necessárias para aqueles que desejam contribuir com a b
 Em breve
 
 ## Contributors
- - [@henriquesosa](https;//github.com/henriquesosa)
+ - [@henriquesosa](https://github.com/henriquesosa)
  - [@ivanhtp](https://github.com/ivanhtp)
  - [@LuizPanariello](https://github.com/LuizPanariello)
 
