@@ -95,14 +95,20 @@
 		this.widget = document.createElement("div");
 		this.widget.className = "dt-chat-widget";
 		this.widget.header = document.createElement("div");
+		this.widget.subheader = document.createElement("div");
 		this.widget.body = document.createElement("div");
+		this.widget.footer = document.createElement("div");
 		this.widget.body.customText = document.createElement("p");
 		this.widget.body.customText.innerHTML = options.customText;
 		this.widget.body.appendChild(this.widget.body.customText);
 		this.widget.appendChild(this.widget.header);
+		this.widget.appendChild(this.widget.subheader);
 		this.widget.appendChild(this.widget.body);
+		this.widget.appendChild(this.widget.footer);
 		this.widget.header.className = "dt-chat-widget-header";
+		this.widget.subheader.className = "dt-chat-widget-subheader";
 		this.widget.body.className = "dt-chat-widget-body";
+		this.widget.footer.className = "dt-chat-widget-footer";
 		this.widget.header.innerHTML = options.title;
 		this.widget.header.onclick = this.toggle.bind(this);
 		this.widget.body.form = document.createElement("form");
@@ -133,6 +139,12 @@
 
 		if(typeof this.oncreate === 'function') {
 			this.oncreate();
+		}
+
+		if(options.customHtml) {
+			options.customHtml.forEach(function(prop) {
+				this.addCustomHtml(prop.element, prop.content);
+			}, this);
 		}
 	};
 	
@@ -291,6 +303,8 @@
 	 */
 	ChatWidget.prototype.open = function(){
 		this.widget.body.style.display = "block";
+		this.widget.subheader.style.display = "block";
+		this.widget.footer.style.display = "block";
 		this.widget.className = this.widget.className.replace(" open", "");
 		this.widget.className = this.widget.className.replace(" closed", "");
 		this.widget.className += " open";
@@ -306,6 +320,8 @@
 	 */
 	ChatWidget.prototype.close = function(){
 		this.widget.body.style.display = "none";
+		this.widget.subheader.style.display = "none";
+		this.widget.footer.style.display = "none";
 		this.widget.className = this.widget.className.replace(" closed", "");
 		this.widget.className = this.widget.className.replace(" open", "");
 		this.widget.className += " closed";
@@ -337,7 +353,22 @@
 	 * @param  {[type]} e [description]
 	 */
 	ChatWidget.prototype.addCustomHtml = function(el, content){
-		www3.directtalk.com.br/clientes/custom/DirectTalk/widget/dt-widget.min.js
+		
+		var wrapper;
+		
+		switch(el) {
+			case 'footer':
+				wrapper = this.widget.footer;
+				break;
+			case 'header':
+				wrapper = this.widget.subheader;
+			default:
+				break;
+		}
+		
+		if(content) {
+			wrapper.innerHTML = content;
+		}
 	};
 
 	/**

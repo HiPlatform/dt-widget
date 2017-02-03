@@ -2,7 +2,8 @@
 <html>
 <head>
 	<title>Demonstração</title>
-	<script src="http://www3.directtalk.com.br/clientes/custom/DirectTalk/widget/dt-widget.min.js"></script>
+	<meta charset="uft-8" />
+	<script src="dt-widget.js"></script>
 </head>
 <body>
 	<script>
@@ -19,7 +20,7 @@
 				name: "nome_usuario",
 				label: "Nome",
 				required: true,
-				value: "teste"
+				value: "Valor Padrão"
 			},{
 				type: "email",
 				name: "email",
@@ -47,12 +48,22 @@
 					value: "assunto 3"
 				}],
 				required: true
-			}]
+			}],
+			customHtml: [
+				{
+					element: 'header',
+					content: '<h1>Conteúdo customizado no Cabeçalho</h1>'
+				},
+				{
+					element: 'footer',
+					content: '<p>Conteúdo customizado no rodapé</p>'
+				}
+			]
 		};
 
 		var widget = new ChatWidget();
 		widget.create(options);
-		widget.setTimer(3);
+		widget.setTimer(.1);
 	</script>
 </body>
 </html>

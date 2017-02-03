@@ -27,9 +27,20 @@
     cursor:pointer;
 }
 
+.dt-chat-widget-subheader{
+    padding: 0 20px;
+    font-size: 10px;
+}
+
 .dt-chat-widget-body{
     padding:10px 20px 20px 20px;
     background:white;
+}
+
+.dt-chat-widget-footer{
+    padding: 0 20px 10px;
+    font-size: 15px;
+
 }
 
 .dt-chat-widget-form-control{
