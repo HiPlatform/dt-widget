@@ -332,14 +332,26 @@
 	};
 
 	/**
+	 * Add custom html to widget elements
+	 * @param  {[type]} e [description]
+	 * @param  {[type]} e [description]
+	 */
+	ChatWidget.prototype.addCustomHtml = function(el, content){
+		www3.directtalk.com.br/clientes/custom/DirectTalk/widget/dt-widget.min.js
+	};
+
+	/**
 	 * Callbacks
 	 * @return void
 	 */
 	ChatWidget.prototype.oncreate   = function() {};
-	ChatWidget.prototype.onsubmit   = function() { console.log('submited'); };
+	ChatWidget.prototype.onsubmit   = function() {};
 	ChatWidget.prototype.onopen     = function() {};
 	ChatWidget.prototype.ontoggle   = function() {};
 	ChatWidget.prototype.onclose    = function() {};
+
+
+	
 
 	return ChatWidget;
 }));
