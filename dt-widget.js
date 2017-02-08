@@ -76,6 +76,7 @@
 		};
 
 		this.URL = this.getScriptUrl();
+		this.HAS_INIT = false;
 	};
 
 	/**
@@ -163,7 +164,18 @@
 		if(field.type === "text" || field.type === "number" || field.type === "email" || field.type === "hidden"){
 			input = document.createElement("input");
 			input.type = field.type;
-		}else if(field.type === "select"){
+		}else if(field.type === "select" || field.type === "init"){
+
+			if(field.type === "init") {
+				if(this.HAS_INIT){
+					console.error('The field "' + field.name + '" cannot be set because the widget already has a "init" type field');
+					return;
+				}else{
+					this.HAS_INIT = true;
+				}
+				
+			}
+			
 			input = document.createElement("select");
 			field.options.unshift({name: "Selecione", value: ""});
 
@@ -214,6 +226,7 @@
 	  	e.preventDefault();
 	  	var isValid = true;
 	  	var data = "";
+		var initValue;
 
 	  	this.fields.forEach(function(field){
 
@@ -239,7 +252,13 @@
 	  			this.$setValid(this.widget.body.form[field.name]);
 	  		}
 
+			if(field.type === "init") {
+				initValue = this.widget.body.form[field.name].value;
+			}
+
 	  	}, this);
+
+		this.chatURL = this.HAS_INIT && initValue !== "" ? initValue : this.chatURL;		
 
 	  	if(isValid){
 	  		this.$setValid(this.widget.body.form);
