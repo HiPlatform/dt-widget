@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Demonstração</title>
-	<meta charset="uft-8" />
+	<meta charset="utf-8" />
 	<script src="dt-widget.js"></script>
 </head>
 <body>
@@ -75,9 +75,19 @@
 			]
 		};
 
-		var widget = new ChatWidget();
-		widget.create(options);
-		widget.setTimer(.1);
+	var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://www3.directtalk.com.br/clientes/custom/DirectTalk/widget/dt-widget.min.js';
+    
+    setTimeout(function(){
+        var widget = new ChatWidget();
+            widget.create(options);
+            widget.setTimer(10);
+  
+    }, 3000);
+
+    var tag = document.getElementsByTagName('script')[0];
+    tag.parentNode.insertBefore(script, tag);
 	</script>
 </body>
 </html>
