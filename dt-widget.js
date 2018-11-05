@@ -79,6 +79,25 @@
 		this.HAS_INIT = false;
 	};
 
+
+	// Chat 5 Widget
+	function insertChatWidget(widgetId, data) {
+		var chatWidget = document.createElement("script");
+		chatWidget.id = "hi-chat-script";
+		chatWidget.src = "https://chat.directtalk.com.br/static/hi-chat/chat.js?widgetId=" + widgetId + "&callback=hiChatCallback";
+		document.querySelector("body").append(chatWidget);
+
+		window.hiChatCallback = function() {
+			document.querySelector('.dt-chat-widget').style.display = "none";
+			var formatData = data;
+    		formatData = formatData.substring(1, formatData.length -1);
+
+    		window.Hi.Chat.minimize();
+    		window.Hi.Chat.fillSurvey(formatData);
+			window.Hi.Chat.start();
+		}
+	}
+	
 	/**
 	 * Function to create a widget
 	 * @param  {[type]} options [object with elements needed]
@@ -86,13 +105,14 @@
 	 */
 	ChatWidget.prototype.create = function(options){
 		if(options.useMask === true && typeof VMasker === "undefined"){
-			this.loadScript(this.URL + "/vendors/vanilla-masker.min.js", function(){
+			this.loadScript("https://www3.directtalk.com.br/clientes/custom/DirectTalk/widget/vendors/vanilla-masker.min.js", function(){
 				this.create(options);
 			}.bind(this));
 
 			return false;
 		}
 
+		this.useChatWidget = options.useChatWidget;
 		this.widget = document.createElement("div");
 		this.widget.className = "dt-chat-widget";
 		this.widget.header = document.createElement("div");
@@ -231,29 +251,30 @@
 	  	this.fields.forEach(function(field){
 
 	  		var value, newValue;
-
-	  		if(field.mask) {
-	  			newValue = VMasker.toNumber(this.widget.body.form[field.name].value);
-	  		}
-
-	  		value = newValue || this.widget.body.form[field.name].value;
-	  		
-	  		data += "&" + field.name + "=" + value;
-	  		
-	  		if(field.required){
-	  			if(!this.validateRequired(this.widget.body.form[field.name])){
-	  				isValid = false;
-	  			}
-
-	  			if(field.type === "email" && !this.validateEmail(this.widget.body.form[field.name])){
-	  				isValid = false;
-	  			}
-	  		}else{
-	  			this.$setValid(this.widget.body.form[field.name]);
-	  		}
-
+			
 			if(field.type === "init") {
 				initValue = this.widget.body.form[field.name].value;
+			} else {
+
+		  		if(field.mask) {
+		  			newValue = VMasker.toNumber(this.widget.body.form[field.name].value);
+		  		}
+
+		  		value = newValue || this.widget.body.form[field.name].value;
+		  		
+		  		data += "&" + field.name + "=" + value;
+		  		
+		  		if(field.required){
+		  			if(!this.validateRequired(this.widget.body.form[field.name])){
+		  				isValid = false;
+		  			}
+
+		  			if(field.type === "email" && !this.validateEmail(this.widget.body.form[field.name])){
+		  				isValid = false;
+		  			}
+		  		}else{
+		  			this.$setValid(this.widget.body.form[field.name]);
+		  		}
 			}
 
 	  	}, this);
@@ -266,8 +287,12 @@
 	  		this.$setInvalid(this.widget.body.form);
 	  	}
 		
-		if(!this.widget.body.form.$invalid){
+		if(!this.widget.body.form.$invalid && !this.useChatWidget){
 			window.open(this.chatURL + data, "Popup", "width=480,height=520");
+		} 
+
+		if(this.useChatWidget) {
+			insertChatWidget(initValue, data);
 		}
 
 		if(typeof this.onsubmit === 'function') {
